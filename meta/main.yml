@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Cameron Lowell Palmer
+  description: rbenv setup and package install
+  company: Promon AS
+
+  license: MIT
+
+  min_ansible_version: 2.4
+
+  galaxy_tags:
+  - development
+  - ruby
+  - macos
+
+dependencies: []
