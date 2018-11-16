@@ -9,10 +9,11 @@
   - readline
   - openssl
 
-- shell: >
-    eval "$(rbenv init -)";
-    rbenv install {{ rbenv_ruby_version }}
-    creates=${HOME}/.rbenv/versions/{{ rbenv_ruby_version }}
+- lineinfile:
+    path: ~/.bash_profile
+    insertafter: EOF
+    state: present
+    line: 'eval "$(rbenv init -)"'
 
 - shell: >
     eval "$(rbenv init -)";
@@ -27,6 +28,6 @@
 
 # NOTE: We must set user_install=no to install gems to ~/.rbenv/versions/{{ rbenv_ruby_version }}/lib/ruby/gems/.
 # If not, gems are installed to /usr/local/lib/ruby/gems/.
-- gem: name={{ item }} state=latest user_install=no executable=~/.rbenv/shims/gem
+- gem: name={{ item }} state=latest user_install=no executable=${HOME}/.rbenv/shims/gem
   notify: rbenv rehash
   with_items: "{{ rbenv_global_gems }}"
